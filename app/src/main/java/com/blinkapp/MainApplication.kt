@@ -4,6 +4,7 @@ import android.app.Application
 import com.blink.data.repositoryImpl.dataModule
 import com.blink.domain.di.domainModule
 import com.blinkapp.di.appModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class MainApplication : Application() {
@@ -11,7 +12,15 @@ class MainApplication : Application() {
         super.onCreate()
 
         startKoin {
-            modules(appModule,domainModule, dataModule)
+            androidContext(this@MainApplication)
+            modules(
+                listOf(
+                    appModule,
+                    dataModule,
+                    domainModule
+                )
+            )
         }
+
     }
 }
